@@ -42,13 +42,12 @@ node('stf'){
     }
 
     stage('运行测试 - Monkey'){
-        sh 'cd /opt/tcloud_jenkins/workspace/monkey_autotest/'
-        sh 'sleep 1s'
+       
       if (installAppRequired == "true" || installAppRequired == true){
       //这里默认使用 python3 运行脚本，注意修改 python 版本
-          sh 'python3 run.py run -dn=' + deviceName + ' -pn=' + packageName + ' -rt=' + runTime + ' -adu="' + appDownloadUrl + '" -daa=' + defaultAppActivity + ' -mid=' + monkeyId + ' -tid=' + taskId + ' -turl=' + tcloudUrl + ' -rm=' + runMode + ' -iar=' + installAppRequired
+          sh 'pipenv run python3 run.py run -dn=' + deviceName + ' -pn=' + packageName + ' -rt=' + runTime + ' -adu="' + appDownloadUrl + '" -daa=' + defaultAppActivity + ' -mid=' + monkeyId + ' -tid=' + taskId + ' -turl=' + tcloudUrl + ' -rm=' + runMode + ' -iar=' + installAppRequired
       }else{
-        sh 'python3 run.py run -dn=' + deviceName + ' -pn=' + packageName + ' -rt=' + runTime + ' -adu="' + appDownloadUrl + '" -daa=' + defaultAppActivity + ' -mid=' + monkeyId + ' -tid=' + taskId + ' -turl=' + tcloudUrl + ' -rm=' + runMode
+        sh 'pipenv run python3 run.py run -dn=' + deviceName + ' -pn=' + packageName + ' -rt=' + runTime + ' -adu="' + appDownloadUrl + '" -daa=' + defaultAppActivity + ' -mid=' + monkeyId + ' -tid=' + taskId + ' -turl=' + tcloudUrl + ' -rm=' + runMode
       }
     }
 
