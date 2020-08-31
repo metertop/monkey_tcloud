@@ -26,6 +26,7 @@ class Utils(object):
         try:
             if not cmd:
                 return False
+            cmd = 'source /etc/profile && ' + cmd
             logger.info(cmd)
             command_process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                                executable="/bin/bash")
