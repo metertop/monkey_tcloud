@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 class AdbTool(object):
     def __init__(self, device_name):
         self.device_name = device_name
-        self.command_path = '/usr/bin/adb'
+        self.command_path = 'adb'
         self.command_args = '-s {}'.format(device_name)
         # self.u2helper = U2Helper(self.device_name)
         pass
