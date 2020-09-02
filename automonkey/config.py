@@ -37,7 +37,7 @@ class DefaultConfig(object):
 
     ACTIVITY_PATH = 'max.activity.statistics.log'
 
-    TCLOUD_URL = 'http://localhost:8080/v1/monkey'  # Tcloud 对应的地址,可以作为参数传入
+    TCLOUD_URL = 'http://172.16.16.127/v1/monkey'  # Tcloud 对应的地址,可以作为参数传入
 
     OSS_URL = ''  # OSS url
 
@@ -45,7 +45,7 @@ class DefaultConfig(object):
 
     OSS_AUTH = oss2.Auth('username', 'password')  # oss auth
 
-    OSS_BUCKET_NAME = ''  # oss bucket name
+    OSS_BUCKET_NAME = 'haoyx-bucket'  # oss bucket name
 
 
 class MonkeyConfig(object):
