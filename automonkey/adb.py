@@ -165,7 +165,7 @@ class AdbTool(object):
             result = self.output(p)
             logger.info('({}) {}'.format(self.device_name, result))
 
-            time.sleep(120)  # 推迟2分钟，防止手动确认安装失败
+            time.sleep(60)  # 推迟1分钟，防止手动确认安装失败
 
             if self.check_package_installed(package_name):
                 # for r in result:
@@ -262,6 +262,7 @@ class AdbTool(object):
             cmd = '{} shell dumpsys package {} | grep versionName'.format(self.adb_command, package_name)
             p = Utils.command_execute(cmd)
             r = self.output(p)
+            logging.info('安装包信息：{}'.format(r))
             if len(r) > 0:
                 temp = r[0].split('=')
                 if len(temp) > 0:
