@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
 class AdbTool(object):
     def __init__(self, device_name):
         self.device_name = device_name
-        self.command_path = 'adb'
+        self.command_path = '/usr/bin/adb'
+        self.grep_path = '/bin/grep'   #防止出现找不到命令的情况出现
         self.command_args = '-s {}'.format(device_name)
         # self.u2helper = U2Helper(self.device_name)
         pass
@@ -247,7 +248,7 @@ class AdbTool(object):
 
     def get_current_application(self):
         return Utils.command_execute(
-            '{} shell dumpsys window w | grep mCurrentFocus'.format(self.adb_command))
+            '{} shell dumpsys window w | {} mCurrentFocus'.format(self.adb_command, self.grep_path))
 
     def get_current_package(self):
         p = self.get_current_application()
@@ -259,7 +260,7 @@ class AdbTool(object):
     def get_package_version(self, package_name):
         logger.info('({}) 获取 安装包 版本信息'.format(self.device_name))
         if self.check_package_installed(package_name):
-            cmd = '{} shell dumpsys package {} | grep versionName'.format(self.adb_command, package_name)
+            cmd = '{} shell dumpsys package {} | {} versionName'.format(self.adb_command, package_name, self.grep_path)
             p = Utils.command_execute(cmd)
             r = self.output(p)
             logging.info('安装包信息：{}'.format(r))
@@ -289,10 +290,10 @@ class AdbTool(object):
     def get_process(self, package_name):
         if self.system is "Windows":
             pid_command = Utils.command_execute(
-                "{} shell ps | grep {}$".format(self.adb_command, package_name)).stdout.readlines()
+                "{} shell ps | {} {}$".format(self.adb_command, self.grep_path, package_name)).stdout.readlines()
         else:
             pid_command = Utils.command_execute(
-                "{} shell ps | grep -w {}".format(self.adb_command, package_name)).stdout.readlines()
+                "{} shell ps | {} -w {}".format(self.adb_command, self.grep_path, package_name)).stdout.readlines()
 
         return Utils.deal_with_python_version(pid_command)
 
@@ -459,7 +460,7 @@ class AdbTool(object):
     def get_cpu(self, package_name):
         try:
             logger.info('try to get cpu information')
-            cmd = '{} shell top -n 1 | grep {} '.format(self.adb_command, package_name)
+            cmd = '{} shell top -n 1 | {} {} '.format(self.adb_command, self.grep_path, package_name)
             p = Utils.command_execute(cmd)
             lines = self.output(p)
             # lines = Utils.deal_with_python_version(lines)
