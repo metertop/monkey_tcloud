@@ -165,6 +165,8 @@ class AdbTool(object):
             result = self.output(p)
             logger.info('({}) {}'.format(self.device_name, result))
 
+            time.sleep(120)  # 推迟2分钟，防止手动确认安装失败
+
             if self.check_package_installed(package_name):
                 # for r in result:
                 #     if 'Success' in r:
