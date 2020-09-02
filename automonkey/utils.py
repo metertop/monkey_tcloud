@@ -26,6 +26,11 @@ class Utils(object):
         try:
             if not cmd:
                 return False
+            # 每次都请求环境变量
+            my_profile = 'source /etc/profile'
+            subprocess.Popen(my_profile, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                             executable="/bin/bash")
+
             logger.info(cmd)
             command_process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                                executable="/bin/bash")
