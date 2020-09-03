@@ -222,7 +222,7 @@ class AdbTool(object):
 
     def check_package_installed(self, package_name):
         for package in self.get_installed_packages():
-            logger.info('package--{}'.format(package))
+            # logger.info('package--{}'.format(package))
             if package_name in package:
                 return True
 
