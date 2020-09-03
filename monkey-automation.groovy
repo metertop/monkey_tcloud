@@ -6,7 +6,8 @@ node('stf'){
         appDownloadUrl = "${AppDownloadUrl}"
         runMode = "${RunMode}"
         systemDevice = "${SystemDevice}"
-        loginRequired = "${LoginRequired}"
+  //      loginRequired = "${LoginRequired}"
+        loginRequired = Boolean.valueOf(LoginRequired)
         loginUsername = "${LoginUsername}"
         loginPassword = "${LoginPassword}"
         defaultAppActivity = "${DefaultAppActivity}"
